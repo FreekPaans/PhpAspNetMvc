@@ -85,7 +85,7 @@ exec {'patch xdebug.ini':
 
 
 apache::vhost { 'phpaspnetmvc':
-	ip => '192.168.56.103',
+	ip => '192.168.56.153',
 	port => 80,
 	docroot => '/www/phpaspnetmvc/application/webroot',
 	docroot_group=>'vagrant',
@@ -106,8 +106,8 @@ class {'nginx':
 }
 
 nginx::resource::vhost {'phpaspnetmvc':
-	proxy => 'http://192.168.56.103:80',
-	listen_ip => '192.168.56.101',
+	proxy => 'http://192.168.56.153:80',
+	listen_ip => '192.168.56.151',
 	listen_port => 80,
 	location_cfg_append => {
 		'proxy_set_header' => 'Host $host',
