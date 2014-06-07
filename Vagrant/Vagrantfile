@@ -1,0 +1,31 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "puppetlabs/debian-6.0.9-64-puppet"
+  config.vm.host_name = "phpaspnetmvc"
+  config.vm.network "private_network", ip: "192.168.56.151"
+  config.vm.network "private_network", ip: "192.168.56.152"
+  config.vm.network "private_network", ip: "192.168.56.153"
+  config.vm.provider "virtualbox" do |v|
+    v.memory=2048
+    v.cpus=2
+  end
+
+  config.vm.synced_folder  "..","/phpaspnetmvc.git",owner:"root",type:"rsync",rsync__args: ["--verbose", "--archive", "-z"] , rsync__exclude: [".git", ".idea", ".settings", ".project", ".gitignore","Vagrant", ".buildpath"]
+
+  config.ssh.shell = "bash -l"
+
+  config.vm.provision "shell", path: "shell/puppet_modules.sh"
+  
+
+  config.vm.provision :puppet do |puppet|
+    puppet.options = "--verbose"
+    puppet.manifests_path ="puppet"
+    puppet.manifest_file  = "site.pp"
+  end
+
+  
+
+end
