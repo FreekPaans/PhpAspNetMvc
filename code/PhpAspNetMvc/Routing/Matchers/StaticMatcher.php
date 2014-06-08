@@ -15,4 +15,8 @@ class StaticMatcher implements Matcher{
 	public function Matches(HttpRequest $request) {
 		return $this->_path == $request->GetUri()->GetPath();
 	}
+
+	public function Match(HttpRequest $request) {
+		return new Match(array());
+	}
 }

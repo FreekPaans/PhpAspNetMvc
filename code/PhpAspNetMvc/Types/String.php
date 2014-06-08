@@ -33,6 +33,27 @@ class String {
 		return substr($this->_value, $start->ToInt(), $numCharacters->ToInt());
 	}
 
+	public function UppercaseFirst() {
+		return new String(ucfirst($this->_value));
+	}
+
+	public function Concat(String $toConcat) {
+		return new String($this->_value.$toConcat->_value);
+	}
+
+	public function Split(String $splitOn) {
+		$removeEmpty = FALSE;
+		if(func_num_args()>1) {
+			$removeEmpty = func_get_arg(1) === TRUE;
+		}
+		$mapped = ImmutableList::FromArray(explode($splitOn->_value,$this->_value))->Map(function($str) { return new String($str); });
+
+		if(!$removeEmpty) {
+			return $mapped;
+		}
+		return $mapped->Filter(function($item) { return !$item->IsEmpty();});
+	}
+
 	public static function Format(String $format) {
 		$allArgs = func_get_args();
 
@@ -59,5 +80,9 @@ class String {
 		}
 
 		return new String($workString);
+	}
+
+	public function IsEmpty() {
+		return strlen($this->_value)===0;
 	}
 }

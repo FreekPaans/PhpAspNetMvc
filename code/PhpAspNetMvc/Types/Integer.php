@@ -20,4 +20,8 @@ class Integer {
 	public function __toString() {
 		return (string)$this->_value;
 	}
+
+	public function Increment() {
+		return new Integer($this->_value+1);
+	}
 }
