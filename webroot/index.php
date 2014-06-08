@@ -8,10 +8,21 @@ include '../code/thirdparty/Autoload/SplClassLoader.php';
 use PhpAspNetMvc\Http\HttpRequest;
 use PhpAspNetMvc\Http\HttpResponse;
 use PhpAspNetMvc\Routing\Router;
+use PhpAspNetMvc\Routing\StaticContentRoute;
+use PhpAspNetMvc\Routing\ControllerActionResolverRoute;
+use PhpAspNetMvc\Types\String;
+use PhpAspNetMvc\Types\ImmutableList;
+use PhpAspNetMvc\Routing\Matchers\StaticMatcher;
+use PhpAspNetMvc\Routing\Matchers\AllMatcher;
+
+$router = new Router();
+
+$router->RegisterRoute( new StaticContentRoute(new StaticMatcher(new String("/test.html")), new String("wasah")));
+$router->RegisterRoute( new ControllerActionResolverRoute(new AllMatcher()));
 
 $request = HttpRequest::FromServerSuperGlobal();
 
-$route = Router::ResolveRoute($request);
+$route = $router->ResolveRoute($request);
 
 $response = HttpResponse::EmptyResponse();
 
