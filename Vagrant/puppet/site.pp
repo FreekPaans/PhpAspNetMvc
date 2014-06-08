@@ -51,29 +51,29 @@ php::ini {'/etc/php5/apache2/php.ini':
 
 php::module{'xdebug':}
 
-php::module::ini{'xdebug':
-	settings=>{
-		'xdebug.remote_enable' => 1,
-		'xdebug.remote_host' => "10.0.2.2",
-		'xdebug.remote_port' => 9000,
-		'xdebug.remote_handler' => "dbgp",
-		'xdebug.remote_mode' => 'req',
-		'xdebug.remote_connect_back' => 0, # we don't use connect back because xdebug uses $_SERVER['REMOTE_ADDR'] which doesn't work with nginx
-		'xdebug.idekey' => "sublime.xdebug"
-	},
-	require=>Php::Module['xdebug'],
-	notify=>Class['apache::service']
-}
+# php::module::ini{'xdebug':
+# 	settings=>{
+# 		'xdebug.remote_enable' => 1,
+# 		'xdebug.remote_host' => "10.0.2.2",
+# 		'xdebug.remote_port' => 9000,
+# 		'xdebug.remote_handler' => "dbgp",
+# 		'xdebug.remote_mode' => 'req',
+# 		'xdebug.remote_connect_back' => 0, # we don't use connect back because xdebug uses $_SERVER['REMOTE_ADDR'] which doesn't work with nginx
+# 		'xdebug.idekey' => "sublime.xdebug"
+# 	},
+# 	require=>Php::Module['xdebug'],
+# 	notify=>Class['apache::service']
+# }
 
 
-exec {'patch xdebug.ini':
-	cwd =>'/etc/php5/apache2/conf.d',
-	path=>'/bin:/usr/bin',
-	command => 'patch < /vagrant/patches/xdebug.patch',
-	require=> Php::Module::Ini['xdebug'],
-	unless=>'grep zend_extension xdebug.ini',
-	notify=>Class['apache::service']
-}
+# exec {'patch xdebug.ini':
+# 	cwd =>'/etc/php5/apache2/conf.d',
+# 	path=>'/bin:/usr/bin',
+# 	command => 'patch < /vagrant/patches/xdebug.patch',
+# 	require=> Php::Module::Ini['xdebug'],
+# 	unless=>'grep zend_extension 20-xdebug.ini',
+# 	notify=>Class['apache::service']
+# }
 
 
 apache::vhost { 'phpaspnetmvc':
