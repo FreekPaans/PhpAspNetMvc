@@ -61,7 +61,7 @@ php::module::ini{'xdebug':
 		'xdebug.remote_connect_back' => 0, # we don't use connect back because xdebug uses $_SERVER['REMOTE_ADDR'] which doesn't work with nginx
 		'xdebug.idekey' => "sublime.xdebug"
 	},
-	require=>Class['apache'],
+	require=>Php::Module['xdebug'],
 	notify=>Class['apache::service']
 }
 

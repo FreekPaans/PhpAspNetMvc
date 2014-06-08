@@ -1,0 +1,22 @@
+{
+	"folders":
+	[
+		{
+			"path": "/C/phpaspnetmvc"
+		}
+	],
+	"settings":
+	{
+		"xdebug":
+		{
+			"close_on_stop": true,
+			"debug": true,
+			"path_mapping":
+			{
+				"/phpaspnetmvc.git/": "C:/phpaspnetmvc/"
+			},
+			"super_globals": true,
+			"url": "http://192.168.56.151"
+		}
+	}
+}
