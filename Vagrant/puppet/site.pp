@@ -49,15 +49,6 @@ php::ini {'/etc/php5/apache2/php.ini':
 	notify => Class['apache::service'],
 }
 
-php::module{'suhosin':}
-
-php::module::ini{'suhosin':
-	settings=>{
-		'suhosin.get.max_value_length' => 1024
-	},
-	notify => Class['apache::service']
-}
-
 php::module{'xdebug':}
 
 php::module::ini{'xdebug':
@@ -92,9 +83,9 @@ apache::vhost { 'phpaspnetmvc':
 	error_log_file => 'error.log',
 	access_log_file => 'access.log',
 	logroot =>'/www/phpaspnetmvc/logs',
-	setenv => {
-		'APPLICATION_ENV'=>'dev'
-	},
+	setenv => [
+		'APPLICATION_ENV dev'
+	],
 	override => 'all',
 
 }
