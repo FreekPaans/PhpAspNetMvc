@@ -4,6 +4,7 @@ namespace PhpAspNetMvc\Mvc\Routing;
 
 use PhpAspNetMvc\Http\HttpRequest;
 use PhpAspNetMvc\Http\HttpResponse;
+use PhpAspNetMvc\Http\HttpContext;
 use PhpAspNetMvc\Types\String;
 use PhpAspNetMvc\Mvc\ModelBinding\ModelBinder;
 
@@ -24,7 +25,7 @@ class ControllerActionResolverRoute implements Route {
 
 		$controllerInstance = $controllerClass->newInstance();
 
-		$args = ModelBinder::Bind($request, $method);
+		$args = ModelBinder::Bind(new HttpContext($request,$response), $method);
 
 		$actionResult = $method->InvokeArgs($controllerInstance, $args);
 	

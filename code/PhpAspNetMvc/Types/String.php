@@ -30,9 +30,14 @@ class String {
 	}
 
 	public function Substring(Integer $start, Integer $numCharacters=null) {
+		if($start==$this->GetLength()) {
+			return new String("");
+		}
+
 		if($numCharacters===null) {
 			return new String(substr($this->_value, $start->ToInt()));
 		}
+
 		return new String(substr($this->_value, $start->ToInt(), $numCharacters->ToInt()));
 	}
 

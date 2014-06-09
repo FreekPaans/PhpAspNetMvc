@@ -54,4 +54,8 @@ class ImmutableList implements \IteratorAggregate{
 		}
 		return $this->_items[$index->ToInt()];
 	}
+
+	public function Any() {
+		return $this->GetLength()->ToInt()>0;
+	}
 }
