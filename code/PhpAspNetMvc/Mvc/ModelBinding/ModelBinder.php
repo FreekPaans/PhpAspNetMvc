@@ -6,6 +6,10 @@ use PhpAspNetMvc\Http\HttpRequest;
 use PhpAspNetMvc\Http\HttpResponse;
 use PhpAspNetMvc\Types\Integer;
 use PhpAspNetMvc\Types\String;
+use PhpAspNetMvc\Mvc\ModelBinders;
+use PhpAspNetMvc\Mvc\ModelBindingContext;
+use PhpAspNetMvc\Mvc\ControllerContext;
+use PhpAspNetMvc\Mvc\ValueProviderFactories;
 
 class ModelBinder {
 	private static function getTypeConverters() {
@@ -21,7 +25,21 @@ class ModelBinder {
 		return $res;
 	}
 
-	public static function Bind(HttpRequest $request, \ReflectionMethod $method) {
+	public static function Bind(HttpRequest $request, \ReflectionMethod $method)  {
+		$parms = array();
+
+		$controllerContext = new ControllerContext();
+
+		$valueProvider = ValueProviderFactories::GetFactories()->GetValueProvider($controllerContext);
+
+		foreach($method->getParameters() as $parameter) {
+			$parms[] = ModelBinders::GetBinders()->GetBinder($parameter->GetClass())->BindModel($controllerContext,new ModelBindingContext($valueProvider));
+		}
+
+		return $parms;
+	}
+
+	public static function Bind2(HttpRequest $request, \ReflectionMethod $method) {
 		$params = array();
 
 		$typeConverters = self::getTypeConverters();
@@ -39,6 +57,8 @@ class ModelBinder {
 			$params[$parameter->getName()] = $typeConverters[$paramType]->Convert($value);
 		}
 
-		return $params;
+		return array('customer' => new \MyApp\Models\Customer(new Integer(1), new String('freek')));
+
+		// return $params;
 	}
 }
