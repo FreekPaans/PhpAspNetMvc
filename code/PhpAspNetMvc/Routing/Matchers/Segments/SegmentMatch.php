@@ -7,4 +7,5 @@ interface SegmentMatch {
 	public function HasParamValue();
 	public function GetParamKey();
 	public function GetParamValue();
+	public function AddRouteValues(array &$routeValues);
 }

@@ -24,4 +24,7 @@ class DirectMatch implements SegmentMatch {
 	public function IsMatch() {
 		return $this->_isMatch;
 	}
+	public function AddRouteValues(array &$routeValues) {
+		return;
+	}
 }

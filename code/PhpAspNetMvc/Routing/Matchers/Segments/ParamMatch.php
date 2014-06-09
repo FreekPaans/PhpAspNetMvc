@@ -27,4 +27,8 @@ class ParamMatch implements SegmentMatch {
 	public function GetParamValue() {
 		return $this->_value;
 	}
+
+	public function AddRouteValues(array &$routeValues) {
+		$routeValues[$this->_key] = $this->_value;
+	}
 }

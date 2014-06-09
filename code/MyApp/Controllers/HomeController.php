@@ -4,6 +4,6 @@ namespace MyApp\Controllers;
 
 class HomeController {
 	public function indexAction() {
-
+		die('x');
 	}
 }

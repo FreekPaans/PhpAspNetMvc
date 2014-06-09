@@ -3,6 +3,8 @@
 namespace PhpAspNetMvc\Routing\Matchers\Segments;
 
 use PhpAspNetMvc\Types\String;
+use PhpAspNetMvc\Types\ImmutableList;
+use PhpAspNetMvc\Types\Integer;
 
 class RouteSegment {
 	private $_routeSegment;
@@ -11,12 +13,29 @@ class RouteSegment {
 		$this->_routeSegment = $routeSegment;
 	}
 
-	public function Match(String $pathValue) {
+	public function Match(ImmutableList $segments, Integer $segmentPosition, array $defaults) {
+		$hasValue = $segments->InRange($segmentPosition);
+
 		if(!$this->HasParam()) {
-			return new DirectMatch($this->_routeSegment === $pathValue);
+			if(!$hasValue) {
+				return new DirectMatch(false);
+			}
+			return new DirectMatch($this->_routeSegment->Equals($segments->ItemAt($segmentPosition)));
 		}
 
-		return new ParamMatch($this->GetParamName(), $pathValue);
+		$paramName = $this->GetParamName();
+
+		$pathValue = null;
+
+		if($hasValue) {
+			return new ParamMatch($paramName, $segments->ItemAt($segmentPosition));
+		}
+
+		if(array_key_exists($paramName, $defaults)) {
+			return new ParamMatch($paramName, $defaults[$paramName]);
+		}
+
+		return new DirectMatch(false);
 	}
 
 	private function GetParamName() {
@@ -29,7 +48,7 @@ class RouteSegment {
 		return $matches[1];
 	}
 
-	public function HasParam() {
+	private function HasParam() {
 		return $this->GetParamName()!==null;
 	}
 }

@@ -85,4 +85,8 @@ class String {
 	public function IsEmpty() {
 		return strlen($this->_value)===0;
 	}
+
+	public function Equals(String $compareTo) {
+		return $this->_value === $compareTo->_value;
+	}
 }

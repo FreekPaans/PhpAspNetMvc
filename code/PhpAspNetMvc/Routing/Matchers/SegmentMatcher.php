@@ -13,30 +13,26 @@ class SegmentMatcher implements Matcher{
 		$this->_defaults = $defaults;
 	}
 
-	private function TryMatch(HttpRequest $request, &$matches){
+	private function TryMatch(HttpRequest $request, &$routeValues){
 		$requestPathSegments = $request->GetUri()->GetPath()->Split(new String('/'), true);
 		
 		$i = new Integer(0);
 
-		$params = array();
+		$tmpRouteValues = array();
 
 		foreach($this->_segments as $segment) {
-			$segMatch = $segment->Match($requestPathSegments->ItemAt($i));	
-
-			$i = $i->Increment();
+			$segMatch = $segment->Match($requestPathSegments, $i, $this->_defaults);	
 			
 			if(!$segMatch->IsMatch()) {
 				return false;
 			}
 
-			if(!$segMatch->HasParamValue()) {
-				continue;
-			}
+			$segMatch->AddRouteValues($tmpRouteValues);
 
-			$params[$segMatch->GetParamKey()] = $segMatch->GetParamValue();
+			$i = $i->Increment();
 		}
 
-		$matches = $params;
+		$routeValues = $tmpRouteValues;
 
 		return true;
 	}

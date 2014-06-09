@@ -44,6 +44,10 @@ class ImmutableList implements \IteratorAggregate{
 		return new Integer(count($this->_items));
 	}
 
+	public function InRange(Integer $position) {
+		return $position->ToInt() < $this->GetLength()->ToInt();
+	}
+
 	public function ItemAt(Integer $index) {
 		if($index->ToInt()>=$this->GetLength()->ToInt()) {
 			throw new \Exception(String::Format(new String("Index out of range: {0}, size: {1}"),$index,$this->GetLength()));
