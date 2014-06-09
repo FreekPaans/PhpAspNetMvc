@@ -5,6 +5,7 @@ namespace PhpAspNetMvc\Mvc\Routing;
 use PhpAspNetMvc\Http\HttpRequest;
 use PhpAspNetMvc\Http\HttpResponse;
 use PhpAspNetMvc\Types\String;
+use PhpAspNetMvc\Mvc\ModelBinding\ModelBinder;
 
 class ControllerActionResolverRoute implements Route {
 	private $_matcher;
@@ -23,11 +24,11 @@ class ControllerActionResolverRoute implements Route {
 
 		$controllerInstance = $controllerClass->newInstance();
 
-		$actionResult = $method->Invoke($controllerInstance);
+		$args = ModelBinder::Bind($request, $method);
+
+		$actionResult = $method->InvokeArgs($controllerInstance, $args);
 	
 		$actionResult->Execute($response);
-
-		//$response->Write(new String('test'));
 	}
 
 	private function GetControllerName(HttpRequest $request) {
