@@ -24,6 +24,10 @@ class HttpRequest {
 		);
 	}
 
+	public function GetQueryString() {
+		return new QueryString($this->_uri->GetQuery());
+	}
+
 	public function GetUri(){
 		return $this->_uri;
 	}

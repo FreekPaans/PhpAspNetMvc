@@ -10,7 +10,7 @@ class Uri {
 	private $_host;
 	private $_pathAndQuery;
 
-	public function __construct(String $scheme, String $host, string $pathAndQuery) {
+	public function __construct(String $scheme, String $host, String $pathAndQuery) {
 		$this->_scheme = $scheme;
 		$this->_host = $host;
 		$this->_pathAndQuery = $pathAndQuery;
@@ -30,5 +30,12 @@ class Uri {
 		}
 
 		return $this->_pathAndQuery->Substring(new Integer(0), $this->_pathAndQuery->IndexOf(new String("?")));
+	}
+
+	public function GetQuery() {
+		$path = $this->GetPath();
+		$pathAndQuery = $this->GetPathAndQuery();
+
+		return $pathAndQuery->Substring($path->GetLength());
 	}
 }

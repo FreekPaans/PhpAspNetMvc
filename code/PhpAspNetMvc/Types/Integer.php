@@ -24,4 +24,8 @@ class Integer {
 	public function Increment() {
 		return new Integer($this->_value+1);
 	}
+
+	public function IsZero() {
+		return $this->_value === 0;
+	}
 }

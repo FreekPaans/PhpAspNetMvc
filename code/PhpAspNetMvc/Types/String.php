@@ -29,8 +29,11 @@ class String {
 		return new Integer($pos);
 	}
 
-	public function Substring(Integer $start, Integer $numCharacters) {
-		return substr($this->_value, $start->ToInt(), $numCharacters->ToInt());
+	public function Substring(Integer $start, Integer $numCharacters=null) {
+		if($numCharacters===null) {
+			return new String(substr($this->_value, $start->ToInt()));
+		}
+		return new String(substr($this->_value, $start->ToInt(), $numCharacters->ToInt()));
 	}
 
 	public function UppercaseFirst() {
@@ -83,10 +86,18 @@ class String {
 	}
 
 	public function IsEmpty() {
-		return strlen($this->_value)===0;
+		return $this->GetLength()->IsZero();
 	}
 
 	public function Equals(String $compareTo) {
 		return $this->_value === $compareTo->_value;
+	}
+
+	public function GetLength() {
+		return new Integer(strlen($this->_value));
+	}
+
+	public function StartsWith(String $value) {
+		return $this->Substring(new Integer(0), $value->GetLength())->Equals($value);
 	}
 }
