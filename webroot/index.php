@@ -20,8 +20,15 @@ use PhpAspNetMvc\Mvc\MvcHandler;
 use PhpAspNetMvc\Routing\RouteTable;
 use PhpAspNetMvc\Routing\UrlRoutingModule;
 
-RouteTable::GetRoutes()->IgnoreRoute(new String("{resource}.axd/{*pathInfo}"));
-RouteTable::GetRoutes()->MapRoute(new String("Default"), new String("{controller}/{action}/{id}"), array('controller'=>new String("Home"),'action' => new String("Index")));
+RouteTable::GetRoutes()->MapRoute(
+		new String("Default"), 
+		new String("{controller}/{action}/{id}"), 
+		array(
+				'controller'=>new String("Home"),
+				'action' => new String("Index"),
+				'id' => \PhpAspNetMvc\Mvc\UrlParameter::Optional()
+		)
+	);
 
 $request = HttpRequest::FromServerSuperGlobal();
 

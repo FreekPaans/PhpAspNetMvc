@@ -12,7 +12,7 @@ class HttpContext {
 		$this->_response = $response;
 	}
 
-	public function GetHttpRequest() {
+	public function GetRequest() {
 		return $this->_request;
 	}
 }
