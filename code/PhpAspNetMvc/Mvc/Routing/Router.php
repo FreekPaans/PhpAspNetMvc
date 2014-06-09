@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpAspNetMvc\Routing;
+namespace PhpAspNetMvc\Mvc\Routing;
 
 use PhpAspNetMvc\Http\HttpRequest;
 use PhpAspNetMvc\Types\String;

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpAspNetMvc\Routing\Matchers\Segments;
+namespace PhpAspNetMvc\Mvc\Routing\Matchers\Segments;
 
 interface SegmentMatch {
 	public function IsMatch();

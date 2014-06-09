@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpAspNetMvc\Routing\Matchers;
+namespace PhpAspNetMvc\Mvc\Routing\Matchers;
 
 use  PhpAspNetMvc\Http\HttpRequest;
 

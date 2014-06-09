@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpAspNetMvc\Routing;
+namespace PhpAspNetMvc\Mvc\Routing;
 
 use PhpAspNetMvc\Http\HttpRequest;
 use PhpAspNetMvc\Http\HttpResponse;
@@ -19,9 +19,15 @@ class ControllerActionResolverRoute implements Route {
 		$controllerName = $this->GetControllerName($request);
 		$actionName = $this->GetActionName($request);
 
-		$method = $this->FindActionMethod($controllerName,$actionName);
+		$this->FindActionControllerAndMethod($controllerName,$actionName,$controllerClass,$method);
+
+		$controllerInstance = $controllerClass->newInstance();
+
+		$actionResult = $method->Invoke($controllerInstance);
 	
-		$response->Write(new String('test'));
+		$actionResult->Execute($response);
+
+		//$response->Write(new String('test'));
 	}
 
 	private function GetControllerName(HttpRequest $request) {
@@ -36,8 +42,12 @@ class ControllerActionResolverRoute implements Route {
 		return $match->getMatchParam('action');	
 	}
 
-	private function FindActionMethod(String $controllerName,String $actionName){
+	private function FindActionControllerAndMethod(String $controllerName,String $actionName, &$outControllerClass, &$outMethod){
 		$controllerClassname  = (string)String::Format(new String('{0}\{1}Controller'), $this->_controllerNameSpace, $controllerName->UppercaseFirst());
+
+		if(!class_exists($controllerClassname)) {
+			throw new \Exception(String::Format(new String("Class {0} doesn't exist"), $controllerClassname));
+		}
 
 		$reflectionClass = new \ReflectionClass($controllerClassname);
 
@@ -57,7 +67,8 @@ class ControllerActionResolverRoute implements Route {
 			throw new \Exception(String::Format(new String("Method {0} is not an instance method"), $method->name));
 		}
 
-		return $method;
+		$outControllerClass = $reflectionClass;
+		$outMethod = $method;
 	}
 
 	public function CanHandle(HttpRequest $request) {

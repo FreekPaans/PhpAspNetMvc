@@ -1,11 +1,11 @@
 <?php
 
-namespace PhpAspNetMvc\Routing\Matchers;
+namespace PhpAspNetMvc\Mvc\Routing\Matchers;
 
 use PhpAspNetMvc\Http\HttpRequest;
 use PhpAspNetMvc\Types\String;
 use PhpAspNetMvc\Types\Integer;
-use PhpAspNetMvc\Routing\Matchers\Segments\RouteSegment;
+use PhpAspNetMvc\Mvc\Routing\Matchers\Segments\RouteSegment;
 
 class SegmentMatcher implements Matcher{
 	public function __construct(String $segments, array $defaults) {

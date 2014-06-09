@@ -1,7 +1,7 @@
 <?php
 
 
-namespace PhpAspNetMvc\Routing\Matchers\Segments;
+namespace PhpAspNetMvc\Mvc\Routing\Matchers\Segments;
 
 use PhpAspNetMvc\Types\String;
 

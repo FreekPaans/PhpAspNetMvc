@@ -8,13 +8,13 @@ include '../code/thirdparty/Autoload/SplClassLoader.php';
 
 use PhpAspNetMvc\Http\HttpRequest;
 use PhpAspNetMvc\Http\HttpResponse;
-use PhpAspNetMvc\Routing\Router;
-use PhpAspNetMvc\Routing\StaticContentRoute;
-use PhpAspNetMvc\Routing\ControllerActionResolverRoute;
+use PhpAspNetMvc\Mvc\Routing\Router;
+use PhpAspNetMvc\Mvc\Routing\StaticContentRoute;
+use PhpAspNetMvc\Mvc\Routing\ControllerActionResolverRoute;
 use PhpAspNetMvc\Types\String;
 use PhpAspNetMvc\Types\ImmutableList;
-use PhpAspNetMvc\Routing\Matchers\StaticMatcher;
-use PhpAspNetMvc\Routing\Matchers\SegmentMatcher;
+use PhpAspNetMvc\Mvc\Routing\Matchers\StaticMatcher;
+use PhpAspNetMvc\Mvc\Routing\Matchers\SegmentMatcher;
 
 $router = new Router();
 

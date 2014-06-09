@@ -2,8 +2,10 @@
 
 namespace MyApp\Controllers;
 
+use PhpAspNetMvc\Mvc\ControllerActions\ViewResult;
+
 class HomeController {
 	public function indexAction() {
-		die('x');
+		return new ViewResult();
 	}
 }
