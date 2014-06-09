@@ -14,8 +14,8 @@ class RouteCollection implements \IteratorAggregate  {
 		throw new \Exception("not implemented yet");
 	}
 
-	public function MapRoute(String $name, String $url, array $defaults) {
-		$route = new Route($url, new MvcRouteHandler(), RouteValueDictionary::FromArray($defaults));
+	public function MapRoute(String $controllerNamespace, String $name, String $url, array $defaults) {
+		$route = new Route($url, new MvcRouteHandler($controllerNamespace), RouteValueDictionary::FromArray($defaults));
 		$this->_routes = $this->_routes->Add($route);
 	}
 

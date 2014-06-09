@@ -8,7 +8,7 @@ use PhpAspNetMvc\Types\ImmutableList;
 use PhpAspNetMvc\Http\HttpContext;
 use PhpAspNetMvc\Http\HttpRequest;
 
-class Route {
+class Route implements RouteBase {
 	private $_segments;
 	private $_defaults;
 	private $_hanlder;
@@ -24,7 +24,7 @@ class Route {
 			return null;
 		}
 
-		var_dump($routeValues);
+		return new RouteData($this,$this->_handler, $routeValues);
 	}
 
 

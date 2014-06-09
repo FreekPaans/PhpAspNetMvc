@@ -3,13 +3,12 @@
 namespace PhpAspNetMvc\Routing;
 
 use PhpAspNetMvc\Http\HttpContext;
-use PhpAspNetMvc\Mvc\RequestContext;
 use PhpAspNetMvc\Types\String;
 
 class UrlRoutingModule {
 	public static function ResolveHandler(HttpContext $context) {
 		$routes = RouteTable::GetRoutes();
-		
+
 		foreach($routes as $route) {
 			$routeData = $route->GetRouteData($context);
 			if($routeData!==null) {

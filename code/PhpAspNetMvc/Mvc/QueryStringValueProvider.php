@@ -8,7 +8,7 @@ class QueryStringValueProvider implements IValueProvider {
 	private $_queryString;
 
  	public function __construct(ControllerContext $context){
- 		$this->_queryString = $context->getHttpContext()->getHttpRequest()->GetQueryString();
+ 		$this->_queryString = $context->GetHttpContext()->GetRequest()->GetQueryString();
  	}
 
 	public function ContainsPrefix(String $prefix) {

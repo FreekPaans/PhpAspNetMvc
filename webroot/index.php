@@ -21,6 +21,7 @@ use PhpAspNetMvc\Routing\RouteTable;
 use PhpAspNetMvc\Routing\UrlRoutingModule;
 
 RouteTable::GetRoutes()->MapRoute(
+		new String('\MyApp\Controllers'),
 		new String("Default"), 
 		new String("{controller}/{action}/{id}"), 
 		array(
@@ -38,16 +39,3 @@ $context = new HttpContext($request,$response);
 
 $handler = UrlRoutingModule::ResolveHandler($context);
 $handler->ProcessRequest($context);
-
-// $router = new Router();
-
-// $router->RegisterRoute( new StaticContentRoute(new StaticMatcher(new String("/test.html")), new String("wasah")));
-// $router->RegisterRoute( new ControllerActionResolverRoute(new SegmentMatcher(new String("{controller}/{action}"), array('controller'=>new String('home'), 'action'=>new String('index'))), new String('MyApp\Controllers')));
-
-
-
-// $route = $router->ResolveRoute($request);
-
-
-
-// $route->Execute($request, $response);

@@ -15,4 +15,8 @@ class HttpContext {
 	public function GetRequest() {
 		return $this->_request;
 	}
+
+	public function GetResponse() {
+		return $this->_response;
+	}
 }

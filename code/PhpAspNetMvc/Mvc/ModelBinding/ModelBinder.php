@@ -12,17 +12,6 @@ use PhpAspNetMvc\Mvc\ValueProviderFactories;
 
 class ModelBinder {
 	public static function Bind(HttpContext $context, \ReflectionMethod $method)  {
-		$parms = array();
-
-		$controllerContext = new ControllerContext($context);
-
-		$valueProvider = ValueProviderFactories::GetFactories()->GetValueProvider($controllerContext);
-
-		foreach($method->getParameters() as $parameter) {
-			$modelBindingContext = new ModelBindingContext($valueProvider, $parameter->getClass(), new String($parameter->name));
-			$parms[] = ModelBinders::GetBinders()->GetBinder($parameter->GetClass())->BindModel($controllerContext,$modelBindingContext);
-		}
-
-		return $parms;
+		
 	}
 }
