@@ -7,6 +7,7 @@ use PhpAspNetMvc\Types\String;
 
 class Customer {
 	private $id;
+	
 	public function __construct(Integer $id, String $name, Address $address=null) {
 		$this->id = $id;
 	}

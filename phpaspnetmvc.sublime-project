@@ -2,7 +2,8 @@
 	"folders":
 	[
 		{
-			"path": "/C/phpaspnetmvc"
+			"follow_symlinks": true,
+			"path": "."
 		}
 	],
 	"settings":
