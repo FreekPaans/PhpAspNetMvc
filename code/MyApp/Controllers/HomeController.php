@@ -9,6 +9,6 @@ use MyApp\Models\Customer;
 
 class HomeController {
 	public function indexAction(Customer $customer) {
-		return new ViewResult(String::Format(new String("id: {0}, name: {1}"), $customer->id, $customer->name));
+		return new ViewResult(String::Format(new String("id: {0}, name: {1}, street: {2}, zipcode: {3}"), $customer->id, $customer->name, $customer->address->street, $customer->address->zipcode));
 	}
 }
