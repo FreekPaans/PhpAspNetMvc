@@ -26,4 +26,8 @@ class ModelBindingContext {
 	public function GetValueProvider() {
 		return $this->_valueProvider;
 	}
+
+	public function ForNewParameter(String $modelName, \ReflectionClass $type) {
+		return new ModelBindingContext($this->_valueProvider, $type, $modelName);
+	}
 }

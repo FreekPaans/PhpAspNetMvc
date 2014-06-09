@@ -7,19 +7,38 @@ use PhpAspNetMvc\Types\Integer;
 
 class DefaultModelBinder implements IModelBinder {
 	public function BindModel(ControllerContext $controllerContext, ModelBindingContext $bindingContext) {
+		$converters = self::getTypeConverters();
+
+		$typeKey = $bindingContext->GetModelType()->getName();
+
+		$value = $bindingContext->GetValueProvider()->GetValue($bindingContext->GetModelName());
+
+		if(array_key_exists($typeKey, $converters)) {
+			if($value===null) {
+				return null;
+			}
+			return $converters[$typeKey]($value);
+		}
+
+
 		if(!$bindingContext->GetValueProvider()->ContainsPrefix($bindingContext->GetModelName())) {
 			return null;
 		}
 
-		$converters = self::getTypeConverters();
-		$value = $bindingContext->GetValueProvider()->GetValue($bindingContext->GetModelName());
-		$typeKey = $bindingContext->GetModelType()->getName();
+		return $this->BindComplexModel($controllerContext, $bindingContext);		
+	}
 
-		if(!array_key_exists($typeKey, $converters)) {
-			return null;
+	private function BindComplexModel(ControllerContext $controllerContext, ModelBindingContext $bindingContext) {
+		$ctor = $bindingContext->GetModelType()->getConstructor();
+
+		$ctorParamValues = array();
+
+		foreach($ctor->getParameters() as $param) {
+			$newBindingContext = $bindingContext->ForNewParameter($bindingContext->GetModelName()->Append(new String("."))->Append(new String($param->getName())), $param->getClass());;
+			$ctorParamValues[] = $this->BindModel($controllerContext,$newBindingContext);
 		}
 
-		return $converters[$typeKey]($value);
+		return $bindingContext->GetModelType()->newInstanceArgs($ctorParamValues);
 	}
 
 	private static function getTypeConverters() {

@@ -105,4 +105,8 @@ class String {
 	public function StartsWith(String $value) {
 		return $this->Substring(new Integer(0), $value->GetLength())->Equals($value);
 	}
+
+	public function Append(String $append) {
+		return new String($this->_value.$append->_value);
+	}
 }
