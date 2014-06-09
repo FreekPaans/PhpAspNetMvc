@@ -32,13 +32,30 @@ class DefaultModelBinder implements IModelBinder {
 		$ctor = $bindingContext->GetModelType()->getConstructor();
 
 		$ctorParamValues = array();
+		$ctorParamKeyValue = array();
 
 		foreach($ctor->getParameters() as $param) {
 			$newBindingContext = $bindingContext->ForNewParameter($bindingContext->GetModelName()->Append(new String("."))->Append(new String($param->getName())), $param->getClass());;
-			$ctorParamValues[] = $this->BindModel($controllerContext,$newBindingContext);
+			$model = $this->BindModel($controllerContext,$newBindingContext);
+			$ctorParamValues[] = $model;
+			$ctorParamKeyValue[$param->getName()] = $model;
 		}
 
-		return $bindingContext->GetModelType()->newInstanceArgs($ctorParamValues);
+		$result = $bindingContext->GetModelType()->newInstanceArgs($ctorParamValues);
+
+		$refObject = new \ReflectionObject($result);
+
+		
+		foreach($ctorParamKeyValue as $key=>$value) {
+			if($refObject->hasProperty($key)) {
+				continue;
+			}
+	
+			$result->$key = $value;
+		}
+
+		return $result;
+		
 	}
 
 	private static function getTypeConverters() {
