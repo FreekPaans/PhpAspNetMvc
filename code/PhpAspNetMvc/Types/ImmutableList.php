@@ -6,7 +6,8 @@ class ImmutableList implements \IteratorAggregate{
 	private $_items;
 
 	public static function CreateNew() {
-		return new ImmutableList(array());
+		$args = func_get_args();
+		return new ImmutableList($args);
 	}
 
 	private function __construct($array) {

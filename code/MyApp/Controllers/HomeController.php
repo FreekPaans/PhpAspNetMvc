@@ -2,18 +2,18 @@
 
 namespace MyApp\Controllers;
 
-use PhpAspNetMvc\Mvc\ControllerActions\ViewResult;
-
 use PhpAspNetMvc\Mvc\ControllerBase;
+use PhpAspNetMvc\Mvc\ViewResult;
 use PhpAspNetMvc\Routing\RequestContext;
 use PhpAspNetMvc\Types\String;
 use PhpAspNetMvc\Types\Integer;
 use MyApp\Models\Customer;
 
 class HomeController extends ControllerBase{
-
 	public function homeAction() {
-		return $this->Content(new String("OK"));
+		// return $this->Content(new String("OK"));
+
+		return new ViewResult();
 	}
 
 	public function indexAction(Customer $customer) {

@@ -109,4 +109,14 @@ class String {
 	public function Append(String $append) {
 		return new String($this->_value.$append->_value);
 	}
+
+	public static function Join(String $separator, ImmutableList $list) {
+		$res = new String("");
+
+		foreach($list as $item) {
+			$res = $res->Append($item)->Append($separator);
+		}
+
+		return $res;
+	}
 }
