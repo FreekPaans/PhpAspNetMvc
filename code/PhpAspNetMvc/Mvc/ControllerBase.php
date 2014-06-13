@@ -6,7 +6,11 @@ use PhpAspNetMvc\Routing\RequestContext;
 use PhpAspNetMvc\Types\String;
 
 class ControllerBase implements IController {
+	private $_requestContext;
+
 	public function Execute(RequestContext $context) {
+		$this->_requestContext = $context;
+
 		$actionName = $context->GetRouteData()->GetRequiredString('action');
 
 		$methodName = $actionName->Concat(new String('Action'));
@@ -66,5 +70,11 @@ class ControllerBase implements IController {
 
 	protected function Content(String $content, String $contentType=null) {
 		return new ContentResult($content,$contentType);
+	}
+
+	protected function View() {
+		$res = new ViewResult($this->_requestContext->GetRouteData()->GetRequiredString('action'), ViewEngines::GetEngines());
+
+		return $res;
 	}
 }

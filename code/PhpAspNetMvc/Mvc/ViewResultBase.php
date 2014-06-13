@@ -5,10 +5,14 @@ namespace PhpAspNetMvc\Mvc;
 use PhpAspNetMvc\Types\String;
 
 abstract class ViewResultBase extends ActionResult {
-	public $viewDataDictionary;
+	private $_viewName;
+	private $_viewEngines;
 
-	protected function __construct() {
-		$this->viewDataDictionary = new ViewDataDictionary();
+
+
+	protected function __construct(String $viewName, ImmutableList $viewEngines) {
+		$this->_viewName = $viewName;
+		$this->_viewEngines = $viewEngines;
 	}
 
 	public function ExecuteResult(ControllerContext $context) {
@@ -21,6 +25,10 @@ abstract class ViewResultBase extends ActionResult {
 		}
 
 		$view->Render(new ViewContext($context,$view,$viewDataDictionary, $context->GetHttpContext()->GetHttpReponse()->GetTextWriter()));
+	}
+
+	protected function GetViewEngines() {
+		return $this->_viewEngines;
 	}
 
 	protected abstract function FindView(ControllerContext $context);

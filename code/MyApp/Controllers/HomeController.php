@@ -13,7 +13,7 @@ class HomeController extends ControllerBase{
 	public function homeAction() {
 		// return $this->Content(new String("OK"));
 
-		return new ViewResult();
+		return $this->View();
 	}
 
 	public function indexAction(Customer $customer) {
