@@ -8,10 +8,11 @@ use PhpAspNetMvc\Types\String;
 class ViewResult extends ViewResultBase {
 	public $masterName;
 
-	public function __construct() {}
+	public function __construct(String $viewName, ViewEngineCollection $viewEngines) {
+		parent::__construct($viewName,$viewEngines);
+	}
 
 	public function FindView(ControllerContext $context) {
-		return $this->GetEngines()->FindView($context, $this->viewName, $this->masterName);
-		//return ViewEngineResult::NotFound(ImmutableList::CreateNew(new String('test'), new String('test2')));
+		return $this->GetViewEngineCollection()->FindView($context, $this->GetViewName(), $this->masterName);
 	}
 }

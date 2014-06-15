@@ -10,7 +10,7 @@ abstract class ViewResultBase extends ActionResult {
 
 
 
-	protected function __construct(String $viewName, ImmutableList $viewEngines) {
+	protected function __construct(String $viewName, ViewEngineCollection $viewEngines) {
 		$this->_viewName = $viewName;
 		$this->_viewEngines = $viewEngines;
 	}
@@ -27,9 +27,13 @@ abstract class ViewResultBase extends ActionResult {
 		$view->Render(new ViewContext($context,$view,$viewDataDictionary, $context->GetHttpContext()->GetHttpReponse()->GetTextWriter()));
 	}
 
-	protected function GetViewEngines() {
+	protected function GetViewEngineCollection() {
 		return $this->_viewEngines;
 	}
 
 	protected abstract function FindView(ControllerContext $context);
+
+	protected function GetViewName() {
+		return $this->_viewName;
+	}
 }

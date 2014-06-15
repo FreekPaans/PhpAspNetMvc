@@ -33,6 +33,15 @@ class ImmutableList implements \IteratorAggregate{
 		return new ImmutableList($array);
 	}
 
+	public static function FromParams() {
+		$args = array();
+		foreach(func_get_args() as $arg) {
+			$args[] = $arg;
+		}
+
+		return self::FromArray($args);
+	}
+
 	public function Map(callable $mapper) {
 		return new ImmutableList(array_map($mapper,$this->_items));
 	}
@@ -58,5 +67,9 @@ class ImmutableList implements \IteratorAggregate{
 
 	public function Any() {
 		return $this->GetLength()->ToInt()>0;
+	}
+
+	public function Concat(ImmutableList $concat) {
+		return self::FromArray(array_merge($this->_items, $concat->_items));
 	}
 }
