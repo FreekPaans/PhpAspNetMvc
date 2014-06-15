@@ -1,15 +1,19 @@
 <?php
 
 namespace PhpAspNetMvc\Mvc;
-namespace PhpAspNetMvc\IO\TextWriter;
 
-class ControllerContext {
-	public $view, $writer, $viewData;
-	private $_context;
+use PhpAspNetMvc\IO\TextWriter;
+
+class ViewContext {
+	private $_view;
+	private $_writer;
+	private $_viewData;
+	private $_controllerContext;
+
 	public function __construct(ControllerContext $context, IView $view, ViewDataDictionary $viewData, TextWriter $writer) {
-		$this->_context = $context;
-		$this->view = $view;
-		$this->writer = $writer;
-		$this->viewData = $viewData;
+		$this->_controllerContext = $context;
+		$this->_view = $view;
+		$this->_writer = $writer;
+		$this->_viewData = $viewData;
 	}
 }

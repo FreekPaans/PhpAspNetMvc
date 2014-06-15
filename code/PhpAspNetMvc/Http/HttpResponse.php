@@ -12,11 +12,15 @@ class HttpResponse{
 		return new HttpResponse();
 	}
 
-	public function Write(String $content) {
+	public function Write($content) {
 		echo $content;
 	}
 
 	public function SetContentType(String $contentType) {
 		header(String::Format(new String('Content-Type: {0}'), $contentType));
+	}
+
+	public function GetTextWriter() {
+		return new HttpWriter($this);
 	}
 }

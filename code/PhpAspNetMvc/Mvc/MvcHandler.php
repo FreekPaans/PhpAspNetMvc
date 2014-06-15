@@ -38,20 +38,20 @@ class MvcHandler implements IHttpHandler{
 		// $actionResult->Execute($context->GetResponse());
 	}
 
-	private function GetControllerActionParams(\ReflectionMethod $method) {
-		$parms = array();
+	// private function GetControllerActionParams(\ReflectionMethod $method) {
+	// 	$parms = array();
 
-		$controllerContext = new ControllerContext($this->_requestContext->GetHttpContext());
+	// 	$controllerContext = new ControllerContext($this->_requestContext->GetHttpContext());
 
-		$valueProvider = ValueProviderFactories::GetFactories()->GetValueProvider($controllerContext);
+	// 	$valueProvider = ValueProviderFactories::GetFactories()->GetValueProvider($controllerContext);
 
-		foreach($method->getParameters() as $parameter) {
-			$modelBindingContext = new ModelBindingContext($valueProvider, $parameter->getClass(), new String($parameter->name));
-			$parms[] = ModelBinders::GetBinders()->GetBinder($parameter->GetClass())->BindModel($controllerContext,$modelBindingContext);
-		}
+	// 	foreach($method->getParameters() as $parameter) {
+	// 		$modelBindingContext = new ModelBindingContext($valueProvider, $parameter->getClass(), new String($parameter->name));
+	// 		$parms[] = ModelBinders::GetBinders()->GetBinder($parameter->GetClass())->BindModel($controllerContext,$modelBindingContext);
+	// 	}
 
-		return $parms;
-	}
+	// 	return $parms;
+	// }
 
 	// private function GetControllerName(HttpRequest $request) {
 	// 	$match = $this->_matcher->Match($request);

@@ -50,7 +50,7 @@ class ControllerBase implements IController {
 
 
 	private function GetControllerContext(RequestContext $requestContext) {
-		return new ControllerContext($requestContext->GetHttpContext());
+		return new ControllerContext($requestContext, $this);
 	}
 
 	private function GetControllerActionParams(RequestContext $requestContext, \ReflectionMethod $method) {

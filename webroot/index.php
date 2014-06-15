@@ -19,6 +19,8 @@ use PhpAspNetMvc\Mvc\Routing\Matchers\SegmentMatcher;
 use PhpAspNetMvc\Mvc\MvcHandler;
 use PhpAspNetMvc\Routing\RouteTable;
 use PhpAspNetMvc\Routing\UrlRoutingModule;
+use PhpAspNetMvc\Mvc\PhpViewEngine;
+use PhpAspNetMvc\Mvc\ViewEngines;
 
 RouteTable::GetRoutes()->MapRoute(
 		new String('\MyApp\Controllers'),
@@ -30,6 +32,10 @@ RouteTable::GetRoutes()->MapRoute(
 				'id' => \PhpAspNetMvc\Mvc\UrlParameter::Optional()
 		)
 	);
+
+$viewPath = dirname(__FILE__).'/../code/MyApp/Views';
+
+ViewEngines::GetEngines()->Add(new PhpViewEngine(new String($viewPath)));
 
 $request = HttpRequest::FromServerSuperGlobal();
 

@@ -9,7 +9,17 @@ class ViewEngineResult {
 	private $_searchedLocations;
 	private $_viewEngine;
 
-	private function __construct() {}
+	private function __construct() {
+	}
+
+	public static function Found(IView $view, IViewEngine $engine) {
+		$res = new ViewEngineResult();
+
+		$res->_view = $view;
+		$res->_viewEngine = $engine;
+
+		return $res;
+	}
 
 	public static function NotFound(ImmutableList $locations) {
 		$res = new ViewEngineResult();

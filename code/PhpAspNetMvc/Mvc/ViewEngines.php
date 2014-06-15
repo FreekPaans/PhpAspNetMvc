@@ -17,6 +17,5 @@ class ViewEngines {
 		}
 
 		self::$_engines = new ViewEngineCollection();
-		self::$_engines->Add(new TestViewEngine());
 	}
 }
