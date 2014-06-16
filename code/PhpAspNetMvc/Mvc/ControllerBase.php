@@ -7,6 +7,19 @@ use PhpAspNetMvc\Types\String;
 
 class ControllerBase implements IController {
 	private $_requestContext;
+	private $_viewData;
+
+	private function GetViewData() {
+		$this->AssertViewData();
+		return $this->_viewData;
+	}
+
+	private function AssertViewData() {
+		if($this->_viewData!==null) {
+			return;
+		}
+		$this->_viewData = ViewDataDictionary::GetEmpty();
+	}
 
 	public function Execute(RequestContext $context) {
 		$this->_requestContext = $context;
@@ -73,7 +86,7 @@ class ControllerBase implements IController {
 	}
 
 	protected function View($model=null) {
-		$viewData = ViewDataDictionary::GetEmpty();
+		$viewData = $this->GetViewData();
 
 		if($model!==null) {
 			$viewData = $viewData->WithModel($model);
@@ -86,5 +99,9 @@ class ControllerBase implements IController {
 		);
 
 		return $res;
+	}
+
+	protected function SetViewDataItem($key, $value) {
+		$this->_viewData = $this->GetViewData()->AddItem($key, $value);
 	}
 }

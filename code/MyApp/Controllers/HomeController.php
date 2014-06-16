@@ -11,7 +11,8 @@ use MyApp\Models\Customer;
 
 class HomeController extends ControllerBase{
 	public function homeAction() {
-		return $this->View(new Customer(new Integer(10), new String("freek")));
+		$this->SetViewDataItem('title', 'hellloww!!!');
+		return $this->View(new String("Test"));
 	}
 
 	public function indexAction(Customer $customer) {
