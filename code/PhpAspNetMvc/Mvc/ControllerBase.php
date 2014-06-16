@@ -72,8 +72,18 @@ class ControllerBase implements IController {
 		return new ContentResult($content,$contentType);
 	}
 
-	protected function View() {
-		$res = new ViewResult($this->_requestContext->GetRouteData()->GetRequiredString('action'), ViewEngines::GetEngines());
+	protected function View($model=null) {
+		$viewData = ViewDataDictionary::GetEmpty();
+
+		if($model!==null) {
+			$viewData = $viewData->WithModel($model);
+		}
+
+		$res = new ViewResult(
+			$this->_requestContext->GetRouteData()->GetRequiredString('action'), 
+			ViewEngines::GetEngines(),
+			$viewData
+		);
 
 		return $res;
 	}

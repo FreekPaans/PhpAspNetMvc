@@ -8,8 +8,8 @@ use PhpAspNetMvc\Types\String;
 class ViewResult extends ViewResultBase {
 	public $masterName;
 
-	public function __construct(String $viewName, ViewEngineCollection $viewEngines) {
-		parent::__construct($viewName,$viewEngines);
+	public function __construct(String $viewName, ViewEngineCollection $viewEngines, ViewDataDictionary $viewData) {
+		parent::__construct($viewName,$viewEngines,$viewData);
 	}
 
 	public function FindView(ControllerContext $context) {

@@ -13,6 +13,8 @@ class PhpView implements IView {
 	}
 
 	public function Render(ViewContext $viewContext, TextWriter $writer) {
-		$writer->Write('test');
+		$content = (new PhpViewRenderer($viewContext->GetViewData()))->Render($this->_viewFile);
+		$writer->Write($content);
 	}
+
 }

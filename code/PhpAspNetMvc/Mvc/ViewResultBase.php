@@ -7,10 +7,12 @@ use PhpAspNetMvc\Types\String;
 abstract class ViewResultBase extends ActionResult {
 	private $_viewName;
 	private $_viewEngines;
+	private $_viewData;
 
-	protected function __construct(String $viewName, ViewEngineCollection $viewEngines) {
+	protected function __construct(String $viewName, ViewEngineCollection $viewEngines, ViewDataDictionary $viewData) {
 		$this->_viewName = $viewName;
 		$this->_viewEngines = $viewEngines;
+		$this->_viewData = $viewData;
 	}
 
 	public function ExecuteResult(ControllerContext $context) {
@@ -28,7 +30,7 @@ abstract class ViewResultBase extends ActionResult {
 			new ViewContext(
 				$context,
 				$view,
-				ViewDataDictionary::GetEmpty(), 
+				$this->_viewData, 
 				$writer
 			),
 			$writer

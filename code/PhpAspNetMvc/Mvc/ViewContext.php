@@ -16,4 +16,8 @@ class ViewContext {
 		$this->_writer = $writer;
 		$this->_viewData = $viewData;
 	}
+
+	public function GetViewData() {
+		return $this->_viewData;
+	}
 }
