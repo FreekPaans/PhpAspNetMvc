@@ -85,7 +85,16 @@ class ControllerBase implements IController {
 		return new ContentResult($content,$contentType);
 	}
 
-	protected function View($model=null) {
+
+	protected function View() {
+		return $this->ViewWithModel(null);
+	}
+
+	protected function ViewWithModel($model=null) {
+		return $this->ViewWithViewNameWithMasterNameWithModel($this->_requestContext->GetRouteData()->GetRequiredString('action'), null, $model);
+	}
+
+	protected function ViewWithViewNameWithMasterNameWithModel(String $viewName, String $masterName=null, $model=null) {
 		$viewData = $this->GetViewData();
 
 		if($model!==null) {
@@ -97,6 +106,10 @@ class ControllerBase implements IController {
 			ViewEngines::GetEngines(),
 			$viewData
 		);
+
+		if($masterName!==null) {
+			$res = $res->WithMasterName($masterName);
+		}
 
 		return $res;
 	}

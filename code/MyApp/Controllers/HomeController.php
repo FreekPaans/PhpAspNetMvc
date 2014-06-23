@@ -12,7 +12,7 @@ use MyApp\Models\Customer;
 class HomeController extends ControllerBase{
 	public function homeAction() {
 		$this->SetViewDataItem('title', 'hellloww!!!');
-		return $this->View(new String("Test"));
+		return $this->ViewWithViewNameWithMasterNameWithModel(new String("home"), new String("master"), new String("Test"));
 	}
 
 	public function indexAction(Customer $customer) {

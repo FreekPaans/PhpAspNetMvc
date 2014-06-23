@@ -37,6 +37,10 @@ abstract class ViewResultBase extends ActionResult {
 		);
 	}
 
+	protected function GetViewData() {
+		return $this->_viewData;
+	}
+
 	protected function GetViewEngineCollection() {
 		return $this->_viewEngines;
 	}
